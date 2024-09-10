@@ -60,37 +60,30 @@ openstack_flavors:
   - "{{ openstack_flavor_m1_small }}"
   - "{{ openstack_flavor_m1_medium }}"
   - "{{ openstack_flavor_m1_large }}"
-  - "{{ openstack_flavor_m1_xlarge }}"
 
 openstack_flavor_m1_tiny:
   name: "m1.tiny"
-  ram: 1024
-  disk: 1
+  ram: 512
+  disk: 16
   vcpus: 1
 
 openstack_flavor_m1_small:
   name: "m1.small"
-  ram: 4096
-  disk: 40
-  vcpus: 1
+  ram: 1024
+  disk: 32
+  vcpus: 2
 
 openstack_flavor_m1_medium:
   name: "m1.medium"
-  ram: 8192
-  disk: 60
-  vcpus: 2
+  ram: 2048
+  disk: 64
+  vcpus: 4
 
 openstack_flavor_m1_large:
   name: "m1.large"
-  ram: 16384
-  disk: 80
-  vcpus: 4
-
-openstack_flavor_m1_xlarge:
-  name: "m1.xlarge"
-  ram: 32768
-  disk: 100
-  vcpus: 6
+  ram: 4096
+  disk: 128
+  vcpus: 8
 
 # List of additional host packages.
 os_images_package_dependencies_extra:
@@ -106,12 +99,11 @@ os_images_force_rebuild: false
 openstack_images:
   - "{{ openstack_image_cirros_0_6_2 }}"
   - "{{ openstack_image_ubuntu_2204 }}"
-  - "{{ openstack_image_ubuntu_2404 }}"
 
 openstack_image_cirros_0_6_2:
   name: "Cirros 6.2"
   type: qcow2
-  image_url: "https://github.com/cirros-dev/cirros/releases/download/0.6.2/cirros-0.6.2-x86_64-disk.img"
+  image_url: "https://github.com/cirros-dev/cirros/releases/download/0.6.2/cirros-0.6.2-aarch64-disk.img"
   is_public: True
   properties:
     os_type: "linux"
@@ -122,23 +114,12 @@ openstack_image_cirros_0_6_2:
 openstack_image_ubuntu_2204:
   name: "Ubuntu 22.04"
   type: qcow2
-  image_url: "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
+  image_url: "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-arm64.img"
   is_public: True
   properties:
     os_type: "linux"
     os_distro: "Ubuntu"
     os_version: "22.04"
-    hw_rng_model: "virtio"
-
-openstack_image_ubuntu_2404:
-  name: "Ubuntu 24.04"
-  type: qcow2
-  image_url: "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
-  is_public: True
-  properties:
-    os_type: "linux"
-    os_distro: "Ubuntu"
-    os_version: "24.04"
     hw_rng_model: "virtio"
 
 openstack_networks:
