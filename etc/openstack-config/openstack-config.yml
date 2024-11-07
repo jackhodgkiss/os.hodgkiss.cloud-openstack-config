@@ -134,6 +134,22 @@ openstack_image_ubuntu_2404:
     os_version: "24.04"
     hw_rng_model: "virtio"
 
+openstack_address_scopes:
+  - name: ipv6_address_scope
+    ip_version: 6
+    shared: true
+
+openstack_subnet_pools:
+  - name: ipv6_pool
+    address_scope: ipv6_address_scope
+    minimum_prefix_length: 64
+    maximum_prefix_length: 124
+    default_prefix_length: 112
+    shared: true
+    default: true
+    prefixes:
+      - fc00:dead:beef::/64
+
 openstack_networks:
   - "{{ openstack_network_external }}"
   - "{{ openstack_network_admin_vlan }}"
@@ -151,6 +167,7 @@ openstack_network_external:
   external: true
   subnets:
     - "{{ openstack_subnet_external }}"
+    - "{{ openstack_subnet_externalv6 }}"
 
 openstack_subnet_external:
   name: "{{ openstack_network_external_name }}"
@@ -159,6 +176,14 @@ openstack_subnet_external:
   gateway_ip: "10.0.40.254"
   allocation_pool_start: "10.0.40.200"
   allocation_pool_end: "10.0.40.249"
+
+openstack_subnet_externalv6:
+  name: "{{ openstack_network_external_name }}v6"
+  project: "admin"
+  ip_version: 6
+  ipv6_address_mode: dhcpv6-stateful
+  ipv6_ra_mode: dhcpv6-stateful
+  subnet_pool: ipv6_pool
 
 openstack_network_admin_vlan_name: "admin-vlan"
 
@@ -200,6 +225,7 @@ openstack_network_compute_vlan:
   shared: false
   subnets:
     - "{{ openstack_subnet_compute_vlan }}"
+    - "{{ openstack_subnet_compute_vlanv6 }}"
 
 openstack_subnet_compute_vlan:
   name: "{{ openstack_network_compute_vlan_name }}"
@@ -208,6 +234,14 @@ openstack_subnet_compute_vlan:
   gateway_ip: "10.141.0.254"
   allocation_pool_start: "10.141.0.1"
   allocation_pool_end: "10.141.0.253"
+
+openstack_subnet_compute_vlanv6:
+  name: "{{ openstack_network_compute_vlan_name }}v6"
+  project: compute
+  ip_version: 6
+  ipv6_address_mode: dhcpv6-stateful
+  ipv6_ra_mode: dhcpv6-stateful
+  subnet_pool: ipv6_pool
 
 openstack_router_compute:
   - name: compute

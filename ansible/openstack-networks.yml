@@ -13,3 +13,5 @@
       os_networks_routers: "{{ openstack_routers }}"
       os_networks_security_groups: "{{ openstack_security_groups }}"
       os_networks_rbac: "{{ openstack_networks_rbac }}"
+      os_networks_scopes: "{{ openstack_address_scopes }}"
+      os_networks_subnet_pools: "{{ openstack_subnet_pools }}"
